@@ -10,7 +10,8 @@ class Index extends Component{
             {id:2,value:0},
             {id:3,value:0},
             {id:4,value:0}
-        ]
+        ],
+        toggle: true
       };
       onDelete = counterID => {
          let counters = this.state.counters.filter(c=> c.id !== counterID);
@@ -31,17 +32,23 @@ class Index extends Component{
         this.setState({counters});
         
     };
+    toggleHandler = () => {
+      console.log("toggle");
+      this.setState({toggle: !this.state.toggle});
+    }
     render(){
         return (
          <React.Fragment>
-           <NavBar total = {this.state.counters.filter(c => c.value > 0 ).length}/>
+           <NavBar total = {this.state.counters.filter(c => c.value > 0 ).length} toggleHandler={this.toggleHandler}/>
+           { this.state.toggle ?
            <Counters 
             counters = {this.state.counters}
             onDelete = {this.onDelete}
             onIncrement = {this.onIncrement}
             onReset = {this.onReset} 
            
-           />
+           /> : null
+           }
          
          
          </React.Fragment>
